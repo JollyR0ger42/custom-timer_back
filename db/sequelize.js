@@ -1,5 +1,3 @@
-// set cfg for DB
-require('dotenv').config()
 const sequelizeCfg = {
   user: process.env.PG_USER,
   host: process.env.PG_HOST,
@@ -7,6 +5,7 @@ const sequelizeCfg = {
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
 }
+
 // Init db
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize(sequelizeCfg.database, sequelizeCfg.user, sequelizeCfg.password, {
