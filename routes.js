@@ -1,37 +1,54 @@
 const router = require('express').Router()
-const db = require('./db')
+const db = require('./models')
+const middleware = require('./middleware')
 
-let model = {}
+let dbStatus = {isConnected: false}
 
 db.init()
   .then(result => {
-    model.Timer = result.Timer
+    if (result) {
+      dbStatus.isConnected = true
+      console.log('DB connected.')
+    }
+    else console.log('Dont have DB connection.')
   })
 
 router.get('/', (req, res) => {
   res.send('Hello browser')
 })
 
-router.get('/timers', async (req, res) => {
-  const timers = await model.Timer.findAll()
-  res.send(timers)
-})
+router.get('/timers',
+  middleware.checkDbStatus(dbStatus),
+  async (req, res) => {
+    const timers = await db.Timer.findAll()
+    res.send(timers)
+  }
+)
 
-router.post('/timers', async (req, res) => {
-  await model.Timer.create(req.body)
-  res.send(await model.Timer.findAll())
-})
+router.post('/timers',
+  middleware.checkDbStatus(dbStatus),
+  async (req, res) => {
+    await db.Timer.create(req.body)
+    res.send(await db.Timer.findAll())
+  }
+)
 
-router.put('/timers/:id', async (req, res) => {
-  const target = await model.Timer.findByPk(req.params.id)
-  await target.update(req.body)
-  res.send(target)
-})
+router.put('/timers/:id',
+  middleware.checkDbStatus(dbStatus),
+  async (req, res) => {
+    const target = await db.Timer.findByPk(req.params.id)
+    await target.update(req.body)
+    res.send(target)
+  }
+)
 
-router.delete('/timers/:id', async (req, res) => {
-  const target = await model.Timer.findByPk(req.params.id)
-  await target.destroy()
-  res.send(await model.Timer.findAll())
-})
+router.delete('/timers/:id',
+  middleware.checkDbStatus(dbStatus),
+  async (req, res) => {
+    const target = await db.Timer.findByPk(req.params.id)
+    await target.destroy()
+    res.send(await db.Timer.findAll())
+  }
+)
 
 module.exports = router

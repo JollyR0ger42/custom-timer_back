@@ -16,5 +16,6 @@ const sequelize = new Sequelize(sequelizeCfg.database, sequelizeCfg.user, sequel
 })
 // Exports
 module.exports = {
-  sequelize
+  sequelize,
+  Sequelize
 }
