@@ -6,9 +6,15 @@ db.sequelize = sequelize
 db.Sequelize = Sequelize
 db.Timer = require('./timer.model.js')(Sequelize, sequelize)
 
-db.init = async () => {
+db.init = async ({skip}) => {
+  if (skip) {
+    console.log('Skiped DB init.')
+    return false
+  }
+
   const MAX_ATTEMPTS = 100
   const DELAY = 10000 // ms
+
   let attempt = 0
   while (attempt < MAX_ATTEMPTS) {
     if (attempt) {

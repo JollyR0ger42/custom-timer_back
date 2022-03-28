@@ -3,7 +3,7 @@ const Timer = require('./timer.controller.js')
 
 let dbStatus = {isConnected: false}
 
-db.init()
+db.init({skip: true})
   .then(result => {
     if (result) {
       dbStatus.isConnected = true

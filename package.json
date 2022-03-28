@@ -16,7 +16,7 @@
     "backend",
     "nodejs",
     "express",
-    "mongodb"
+    "postgres"
   ],
   "author": "JollyR0ger",
   "license": "WTFPL",
