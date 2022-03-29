@@ -1,9 +1,10 @@
 const db = require.main.require('./models')
 const Timer = require('./timer.controller.js')
+const User = require('./auth.controller.js')
 
 let dbStatus = {isConnected: false}
 
-db.init({skip: false})
+db.init({skip: true})
   .then(result => {
     if (result) {
       dbStatus.isConnected = true
@@ -14,5 +15,6 @@ db.init({skip: false})
 
 module.exports = {
   dbStatus,
-  Timer
+  Timer,
+  User
 }

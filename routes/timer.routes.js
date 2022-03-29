@@ -12,7 +12,7 @@ module.exports = (app) => {
   app.post('/timers',
     checkDbStatus(dbStatus),
     async (req, res) => {
-      res.send(await Timer.create(req.body))
+      res.send(await Timer.createTimer(req.body))
     }
   )
   
