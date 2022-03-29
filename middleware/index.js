@@ -1,4 +1,4 @@
-const checkDbStatus = require('./db.middleware.js')
+const {checkDbStatus} = require('./db.middleware')
 
 module.exports = {
   checkDbStatus

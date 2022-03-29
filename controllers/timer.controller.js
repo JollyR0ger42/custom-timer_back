@@ -10,6 +10,8 @@ const create = async (payload) => {
 }
 
 const updateById = async (id, payload) => {
+  // [KAV]TODO: shpuld be more smart for 2 device at same acc,
+  // e.g. if u send stop from 2 different devices - it shouldnt update on second STOP
   const timer = await db.Timer.findByPk(id)
   await timer.update(payload)
   return timer
