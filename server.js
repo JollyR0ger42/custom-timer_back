@@ -8,7 +8,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use(require('./routes.js'))
+require('./routes')(app)
 
 const PORT = process.env.SERVER_PORT || 3000
 app.listen(PORT, () => {
