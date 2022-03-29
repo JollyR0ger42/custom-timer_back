@@ -5,6 +5,10 @@ const db = {}
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 db.Timer = require('./timer.model.js')(Sequelize, sequelize)
+db.User = require('./user.model.js')(Sequelize, sequelize)
+
+db.User.hasMany(db.Timer, {foreignKey: 'userId'})
+db.Timer.belongsTo(db.User)
 
 db.init = async ({skip}) => {
   if (skip) {
@@ -21,7 +25,7 @@ db.init = async ({skip}) => {
       console.log(`Reconnect will hapened after ${DELAY/1000}s delay.`)
       await utils.delay(DELAY)
     }
-    console.log(`Attempt #${attempt+1}: Syncing models...`)
+    console.log(`Attempt #${attempt+1}/${MAX_ATTEMPTS}: Syncing models...`)
     try {
       await db.sequelize.sync({alter: true})
       console.log('Models synced.')
