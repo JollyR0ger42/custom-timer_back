@@ -4,7 +4,7 @@ const User = require('./auth.controller.js')
 
 let dbStatus = {isConnected: false}
 
-db.init({skip: true})
+db.init({skip: false})
   .then(result => {
     if (result) {
       dbStatus.isConnected = true

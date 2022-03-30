@@ -3,10 +3,11 @@ const {dbStatus, User} = require.main.require('./controllers')
 
 module.exports = (app) => {
   app.post('/auth/signup',
-    // checkDbStatus(dbStatus),
+    checkDbStatus(dbStatus),
     async (req, res) => {
-      User.createUser(req.body)
-      res.send({action: 'signup'})
+      const user = await User.createUser(req.body)
+      if (user) res.send({message: 'signup success'})
+      else res.send({message: 'User exist'})
     }
   )
   
