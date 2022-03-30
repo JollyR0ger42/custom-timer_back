@@ -1,6 +1,6 @@
 const db = require.main.require('./models')
 const Timer = require('./timer.controller.js')
-const User = require('./auth.controller.js')
+const User = require('./user.controller.js')
 
 let dbStatus = {isConnected: false}
 
