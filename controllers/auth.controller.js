@@ -9,6 +9,15 @@ const createUser = async ({name, password}) => {
   return user
 }
 
+const verifyUser = async ({name, password}) => {
+  let user = await User.findOne({where: {name}})
+  if (!user) return false
+  const passwordIsValid = bcrypt.compareSync(password, user.password)
+  if (passwordIsValid) return user
+  else return false
+}
+
 module.exports = {
-  createUser
+  createUser,
+  verifyUser
 }
