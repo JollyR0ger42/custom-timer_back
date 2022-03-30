@@ -17,7 +17,7 @@ app.get(
   '/',
   verifyToken,
   (req, res) => {
-  res.send('Hello browser')
+  res.send('Hello ' + req.userName)
 })
 
 app.listen(PORT, () => {

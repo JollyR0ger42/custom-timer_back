@@ -15,13 +15,12 @@ module.exports = (app) => {
   app.post('/auth/signin',
     checkDbStatus(dbStatus),
     async (req, res) => {
-      console.log(process.env.SECRET_KEY)
       const user = await User.verifyUser(req.body)
       if (user) {
         const token = jwt.sign(
           {name: user.name},
           process.env.SECRET_KEY,
-          {expiresIn: '30 days'}
+          {expiresIn: '30d'}
         )
         res.send({
           name: user.name,
