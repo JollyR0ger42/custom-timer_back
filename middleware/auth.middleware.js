@@ -12,9 +12,9 @@ const verifyToken = async (req, res, next) => {
   catch(error) {
     console.log(error)
     if (error instanceof jwt.TokenExpiredError) {
-      return res.send({message: 'Token expired'})
+      return res.status(403).send('Token expired')
     } else {
-      return res.send({message: 'Unauthorized'})
+      return res.status(401).send('Unauthorized')
     }
   }
 }

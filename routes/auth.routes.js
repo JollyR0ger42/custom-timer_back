@@ -7,8 +7,8 @@ module.exports = (app) => {
     requiredFields(['name', 'password']),
     async (req, res) => {
       const user = await User.createUser(req.body)
-      if (user) res.send({message: 'signup success'})
-      else res.send({message: 'User exist'})
+      if (user) res.status(201).send('Signup success')
+      else res.status(400).send('User exist')
     }
   )
   
@@ -18,9 +18,9 @@ module.exports = (app) => {
       const user = await User.verifyUser(req.body)
       if (user) {
         const accessToken = User.generateToken({name: user.name})
-        res.send({name: user.name, accessToken})
+        res.status(200).send({name: user.name, accessToken})
       }
-      else res.send({message: 'Wrong creds'})
+      else res.status(400).send('Wrong creds')
     }
   )
 }

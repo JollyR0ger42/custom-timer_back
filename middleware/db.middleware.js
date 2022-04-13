@@ -1,7 +1,7 @@
 const checkDbStatus = (dbStatus) => {
   return (req, res, next) => {
     if (dbStatus.isConnected) next()
-    else res.send({error: 'No DB connection.'})
+    else res.status(503).send('No DB connection.')
   }
 }
 
