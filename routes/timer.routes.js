@@ -19,7 +19,7 @@ module.exports = (app) => {
   app.put('/timers/:id',
     checkDbStatus(dbStatus),
     async (req, res) => {
-      res.send(await Timer.updateById(req.params.id, req,body))
+      res.send(await Timer.updateById(req.params.id, req.body))
     }
   )
   
