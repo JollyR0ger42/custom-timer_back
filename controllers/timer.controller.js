@@ -5,7 +5,7 @@ const getAll = async () => {
 }
 
 const createTimer = async (payload) => {
-  await Timer.createTimer(payload)
+  await Timer.create(payload)
   return await Timer.findAll()
 }
 
