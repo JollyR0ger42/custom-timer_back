@@ -17,7 +17,7 @@ app.get(
   '/',
   verifyToken,
   (req, res) => {
-  res.status(200).send('Hello ' + req.userName)
+  res.status(200).send({message: 'Hello ' + req.userName})
 })
 
 app.listen(PORT, () => {
