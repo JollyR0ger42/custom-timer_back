@@ -12,8 +12,9 @@ module.exports = (app) => {
     }
   )
   
-  app.post('/auth/signin',
+  app.post('/auth/login',
     checkDbStatus(dbStatus),
+    requiredFields(['name', 'password']),
     async (req, res) => {
       const user = await User.verifyUser(req.body)
       if (user) {
