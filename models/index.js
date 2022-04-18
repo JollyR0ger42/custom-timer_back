@@ -7,8 +7,8 @@ db.Sequelize = Sequelize
 db.Timer = require('./timer.model.js')(Sequelize, sequelize)
 db.User = require('./user.model.js')(Sequelize, sequelize)
 
-db.User.hasMany(db.Timer, {foreignKey: 'userId'})
-db.Timer.belongsTo(db.User)
+db.User.hasMany(db.Timer)
+db.Timer.belongsTo(db.User, {foreignKey: 'userId'})
 
 db.init = async ({skip}) => {
   if (skip) {

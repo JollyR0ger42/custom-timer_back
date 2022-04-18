@@ -6,7 +6,9 @@ module.exports = (app) => {
     verifyToken,
     checkDbStatus(dbStatus),
     async (req, res) => {
-      res.status(200).send(await Timer.getAll())
+      const result = await Timer.getAllById(req.userId)
+      if (result) res.status(200).send(result)
+      else res.status(500).send({error: 'Cannot get timers.'})
     }
   )
   
@@ -14,7 +16,13 @@ module.exports = (app) => {
     verifyToken,
     checkDbStatus(dbStatus),
     async (req, res) => {
-      res.status(201).send(await Timer.createTimer(req.body))
+      const newTimer = {
+        ...req.body,
+        userId: req.userId
+      }
+      const result = await Timer.createTimer(newTimer)
+      if (result) res.status(201).send(result)
+      else res.status(400).send({error: 'No timer created.'})
     }
   )
   

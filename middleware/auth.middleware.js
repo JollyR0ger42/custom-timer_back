@@ -6,7 +6,7 @@ const verifyToken = async (req, res, next) => {
   let result
   try {
     result = await jwt.verify(token, process.env.SECRET_KEY)
-    req.userName = result.name
+    req.userId = result.id
     console.log(result)
     return next()
   }
