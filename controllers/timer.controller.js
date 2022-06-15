@@ -1,9 +1,9 @@
 const {Timer} = require.main.require('./models')
 
 const getAllById = async (id) => {
-  return await Timer.findAll(
-    {where: {userId: id},
-    order: ['createdAt']
+  return await Timer.findAll({
+    where: {userId: id},
+    order: ['name']
   })
 }
 
@@ -14,7 +14,10 @@ const createTimer = async (payload) => {
     started: new Date().toUTCString(),
     stopped: new Date().toUTCString()
   }
-  try {result = await Timer.create(newTimer)}
+  try {
+    await Timer.create(newTimer)
+    result = await Timer.findAll({order: ['name']})
+  }
   catch (error) {console.error(error)}
   return result
 }
@@ -37,7 +40,7 @@ const updateById = async (id, payload) => {
 const deleteById = async (id) => {
   const timer = await Timer.findByPk(id)
   await timer.destroy()
-  return await Timer.findAll()
+  return await Timer.findAll({order: ['name']})
 }
 
 module.exports = {
