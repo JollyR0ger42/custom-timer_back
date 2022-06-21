@@ -23,15 +23,12 @@ const createTimer = async (payload) => {
 }
 
 const updateById = async (id, payload) => {
-  // [KAV]TODO: shpuld be more smart for 2 device at same acc,
-  // e.g. if u send stop from 2 different devices - it shouldnt update on second STOP
   const timer = await Timer.findByPk(id)
   if (payload?.started && timer.stopped) {
     await timer.update({started: payload.started, stopped: null})
   } else if (payload?.stopped && !timer.stopped) {
     const timePassed = new Date(payload.stopped) - new Date(timer.started)
     const timeLeft = timer.timeLeft - timePassed
-    console.log(timeLeft)
     await timer.update({stopped: payload.stopped, timeLeft})
   }
   return timer
