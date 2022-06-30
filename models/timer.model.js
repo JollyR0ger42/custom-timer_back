@@ -2,7 +2,7 @@ module.exports = (Sequelize, sequelize) => {
   class Timer extends Sequelize.Model {}
   Timer.init({
     name: {type: Sequelize.STRING},
-    timeLeft: {type: Sequelize.INTEGER},
+    timeLeft: {type: Sequelize.STRING},
     started: {type: Sequelize.STRING},
     stopped: {type: Sequelize.STRING}
   }, {
