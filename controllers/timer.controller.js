@@ -12,7 +12,8 @@ const createTimer = async (payload) => {
   const newTimer = {
     ...payload,
     started: new Date().toUTCString(),
-    stopped: new Date().toUTCString()
+    stopped: new Date().toUTCString(),
+    timeLeft: payload.initTimeLeft,
   }
   try {
     await Timer.create(newTimer)
@@ -36,7 +37,13 @@ const updateById = async (id, payload) => {
     await timer.update({stopped: payload.stopped, timeLeft})
   // for upd fields
   } else {
-    await timer.update(payload)
+    const fields = {...payload}
+    if (timer.initTimeLeft != payload.initTimeLeft) {
+      fields.started = new Date().toUTCString()
+      fields.stopped = new Date().toUTCString()
+      fields.timeLeft = payload.initTimeLeft
+    }
+    await timer.update(fields)
   }
   try {result = await Timer.findAll({order: ['name', 'id']})}
   catch (error) {console.error(error)}
